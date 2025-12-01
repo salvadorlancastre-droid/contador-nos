@@ -2,198 +2,68 @@
 <html lang="pt-PT">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Salvador ❤ Assunção — Juntos</title>
-
 <style>
-    :root {
-        --bg1: #0a1a2f;
-        --bg2: #123a5e;
-        --text: #ffffff;
-        --muted: rgba(255,255,255,0.75);
-        --accent: #ff4d6d;
-        --glow: rgba(255, 100, 140, 0.15);
-    }
+  :root{
+    --bg1:#ffefef;
+    --bg2:#ffe6f0;
+    --card:#ffffffc9;
+    --text:#0b1b2b;
+    --muted:rgba(11,27,43,0.65);
+    --accent:#ff3b6b;
+    --soft:#ffdce6;
+  }
 
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(180deg, var(--bg1), var(--bg2));
-        font-family: "Segoe UI", Arial, sans-serif;
-        color: var(--text);
-        overflow-x: hidden;
-    }
+  html,body{height:100%;margin:0;font-family:Inter, "Segoe UI", Arial, sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text);display:flex;align-items:center;justify-content:center;padding:20px;}
 
-    /* Efeito de brilho romântico no fundo */
-    body::before {
-        content: "";
-        position: fixed;
-        top: -20%;
-        left: -20%;
-        width: 140%;
-        height: 140%;
-        background: radial-gradient(circle at 70% 30%, var(--glow), transparent 60%);
-        z-index: 0;
-        pointer-events: none;
-    }
+  /* floating hearts background */
+  .hearts {
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(255,100,140,0.12), transparent 6%),
+      radial-gradient(circle at 80% 80%, rgba(255,180,220,0.10), transparent 8%);
+    overflow:hidden;
+  }
+  .hearts span{
+    position:absolute;
+    width:28px;height:28px;
+    transform:translateY(120vh) rotate(-15deg);
+    opacity:0.9;
+    animation:floatUp linear infinite;
+    background: conic-gradient(from 180deg at 50% 30%, var(--accent), #ff7aa0);
+    clip-path: polygon(50% 85%, 15% 100%, 0% 65%, 20% 30%, 50% 45%, 80% 30%, 100% 65%, 85% 100%);
+    border-radius:6px;
+    filter: blur(0.2px);
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(120vh) scale(.7) rotate(-10deg); opacity:0; }
+    10% { opacity:0.9; }
+    100% { transform: translateY(-30vh) scale(1.1) rotate(10deg); opacity:0; }
+  }
+  /* different delays/positions */
+  .h1{ left:10%; animation-duration:14s; animation-delay:0s; }
+  .h2{ left:30%; animation-duration:18s; animation-delay:2s; width:34px;height:34px }
+  .h3{ left:55%; animation-duration:16s; animation-delay:1s; width:24px;height:24px }
+  .h4{ left:75%; animation-duration:20s; animation-delay:3s; width:30px;height:30px }
+  .h5{ left:85%; animation-duration:22s; animation-delay:5s; width:20px;height:20px }
 
-    .card {
-        position: relative;
-        z-index: 1;
-        width: 90%;
-        max-width: 420px;
-        background: rgba(255,255,255,0.05);
-        border-radius: 16px;
-        padding: 20px;
-        text-align: center;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 0 25px rgba(0,0,0,0.4);
-        border: 1px solid rgba(255,255,255,0.08);
-    }
+  .card{
+    position:relative; z-index:1;
+    width:100%; max-width:460px;
+    background:var(--card);
+    border-radius:16px; padding:18px;
+    box-shadow: 0 10px 30px rgba(11,27,43,0.08);
+    text-align:center;
+    border:1px solid rgba(11,27,43,0.06);
+  }
 
-    .photo-wrap {
-        width: 100%;
-        height: 300px;
-        border-radius: 12px;
-        overflow: hidden;
-        margin-bottom: 15px;
-        background: rgba(255,255,255,0.06);
-        box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
-    }
-
-    .photo-wrap img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    h1 {
-        margin: 8px 0 0 0;
-        font-size: 24px;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-    }
-
-    .names {
-        font-size: 14px;
-        color: var(--muted);
-        margin-bottom: 12px;
-        font-weight: 600;
-    }
-
-    .counter {
-        font-size: 20px;
-        font-weight: bold;
-        margin-top: 10px;
-    }
-
-    .details {
-        color: var(--muted);
-        margin-top: 6px;
-        font-size: 15px;
-    }
-
-    .time {
-        margin-top: 8px;
-        font-size: 17px;
-        font-weight: 600;
-    }
-
-    .heart {
-        font-size: 28px;
-        margin-top: 12px;
-        color: var(--accent);
-    }
-
-    .message {
-        color: var(--muted);
-        margin-top: 16px;
-        font-size: 14px;
-        line-height: 1.5;
-    }
-
-    .error {
-        margin-top: 10px;
-        color: #ffb3b3;
-        font-weight: bold;
-    }
-</style>
-</head>
-
-<body>
-    <div class="card">
-        <div class="photo-wrap">
-            <!-- Substitui aqui pela tua imagem -->
-            <img src="your-photo.jpg" alt="Foto de Salvador e Assunção" onerror="this.style.display='none'">
-        </div>
-
-        <h1>Juntos</h1>
-        <div class="names">Salvador ❤ Assunção</div>
-
-        <div id="mainCounter" class="counter">A carregar contador...</div>
-        <div id="details" class="details"></div>
-        <div id="time" class="time"></div>
-
-        <div class="heart">❤️</div>
-
-        <div class="message">
-            Para te lembrares quantos dias passaram desde que tomei a melhor decisão da minha vida…  
-            E que possamos voltar aqui e ver que os dias só aumentaram. Amo-te daqui até ao infinito ❤️
-        </div>
-
-        <div id="error" class="error" style="display:none"></div>
-    </div>
-
-<script>
-/* DATA DO INÍCIO DO NAMORO — EDITA AQUI SE PRECISAR */
-const startRaw = "2025-09-17T22:00:00";
-
-/* Tenta converter a string numa data válida */
-function parseDate(str) {
-    const d = new Date(str);
-    return isNaN(d.getTime()) ? null : d;
-}
-
-const startDate = parseDate(startRaw);
-const errBox = document.getElementById("error");
-
-if (!startDate) {
-    errBox.style.display = "block";
-    errBox.innerText = "Erro: data inválida. Edita no código a variável startRaw!";
-} else {
-
-    function update() {
-        const now = new Date();
-
-        let total = Math.floor((now - startDate) / 1000);
-        if (total < 0) total = 0;
-
-        const years = now.getFullYear() - startDate.getFullYear();
-        const months = now.getMonth() - startDate.getMonth() + years * 12;
-
-        // Converte tudo novamente
-        const days = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((now - startDate) / (1000 * 60 * 60)) % 24;
-        const minutes = Math.floor((now - startDate) / (1000 * 60)) % 60;
-        const seconds = total % 60;
-
-        document.getElementById("mainCounter").innerText =
-            `${years} anos • ${months % 12} meses • ${days} dias`;
-
-        document.getElementById("details").innerText =
-            `${days} dias no total`;
-
-        document.getElementById("time").innerText =
-            `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
-    }
-
-    update();
-    setInterval(update, 1000);
-}
-</script>
-
-</body>
-</html>
+  .photo{
+    width:100%; height:320px; object-fit:cover; border-radius:10px; display:block; margin-bottom:12px; background:linear-gradient(135deg,#ffdce6,#fff);
+  }
+  h1{margin:6px 0 2px;font-size:24px}
+  .names{font-weight:700;color:var(--muted);font-size:14px;margin-bottom:8px}
+  .mainCounter{font-weight:800;font-size:20px;margin-top:8px;color:var(--text)}
+  .ymd{color:var(--muted);margin-top:6px;font-size:15px}
+  .hms{margin-top:10px;font-weight:700;font-size:16px;color:var(--text)}
+  .heart{font-
